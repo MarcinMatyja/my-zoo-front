@@ -23,16 +23,29 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.table_data {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.Tabeleczka {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+}
+.logout {
+  color: #f7924a;
+  text-decoration: none;
+}
+.logout:hover {
+  color: #edc2a2;
+}
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.offscreen {
+  position: absolute;
+  left: -9999px;
 }
