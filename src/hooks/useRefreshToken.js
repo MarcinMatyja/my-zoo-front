@@ -4,13 +4,19 @@ import useAuth from "./useAuth";
 function useRefreshToken() {
   const { auth, setAuth } = useAuth();
 
-  const token = JSON.stringify(auth.accessToken);
+  const token = auth?.accessToken;
 
   const refresh = async () => {
-    const response = await axios.post("/auth/refreshToken", {
-      headers: { Authorization: "Bearer" + token },
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      "/auth/refreshToken",
+      JSON.stringify({ token: token }),
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+    console.log("token" + token);
+    console.log(response);
     setAuth((prev) => {
       console.log(JSON.stringify(prev));
       console.log(response.data.jwt);
