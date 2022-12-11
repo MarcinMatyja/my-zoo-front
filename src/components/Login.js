@@ -49,10 +49,10 @@ const Login = () => {
       const ID = resp?.data?.user.id;
       setAuth({ user, pwd, ID, accessToken });
       // console.log(user, pwd, accessToken, ID);
-      console.log(auth);
       setUser("");
       setPwd("");
       navigate(from, { replace: true });
+      localStorage.setItem("user", JSON.stringify(resp?.data));
     } catch (err) {
       if (!err?.resp) {
         setErrMsg("no Server Response");

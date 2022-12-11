@@ -4,7 +4,6 @@ import Table from "react-bootstrap/Table";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Appoitment from "./appoitment";
-import Users from "./TESTUsers";
 
 import useRefreshToken from "../hooks/useRefreshToken";
 
@@ -115,7 +114,6 @@ function Pet() {
       </Container>
       <button onClick={() => refresh()}>JWT</button>
       <p>{JSON.stringify(auth.accessToken)}</p>
-      <Users />
     </>
   );
 }
