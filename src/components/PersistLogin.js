@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import useAuth from "../hooks/useAuth";
@@ -6,7 +6,10 @@ import useAuth from "../hooks/useAuth";
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { auth, setAuth } = useAuth();
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname;
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -18,8 +21,9 @@ const PersistLogin = () => {
       const ID = foundUser.user.id;
       setAuth({ user, ID, accessToken });
       setIsLoading(false);
+      console.log(from);
     } else {
-      navigate("/", { replace: true });
+      navigate(from, { replace: true });
       setIsLoading(false);
     }
   }, []);

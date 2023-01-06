@@ -7,8 +7,6 @@ import Alert from "react-bootstrap/Alert";
 
 import axios from "../api/axios";
 
-import { UserContext } from "../context/UserContext";
-
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{3,23}/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/;
 const MAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;

@@ -11,11 +11,14 @@ import Row from "react-bootstrap/esm/Row";
 import axios from "../api/axios";
 
 import useAuth from "../hooks/useAuth";
+import Pets from "./Pets";
 
 const LOGIN_URL = "/auth/local";
 
 const Login = () => {
   const { auth, setAuth } = useAuth();
+
+  const [userCheck, setUserCheck] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,6 +32,14 @@ const Login = () => {
   useEffect(() => {
     setErrMsg("");
   }, [user, pwd]);
+
+  useEffect(() => {
+    if (localStorage.getItem("user") === null) {
+      console.log("");
+    } else {
+      navigate(from, { replace: true });
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +62,7 @@ const Login = () => {
       // console.log(user, pwd, accessToken, ID);
       setUser("");
       setPwd("");
-      navigate(from, { replace: true });
+
       localStorage.setItem("user", JSON.stringify(resp?.data));
     } catch (err) {
       if (!err?.resp) {

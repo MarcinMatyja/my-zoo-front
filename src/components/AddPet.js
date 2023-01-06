@@ -24,18 +24,14 @@ const AddPet = () => {
   const [Umaszczenie, setUmaszczenie] = useState("");
   const [Gatunek, setGatunek] = useState("");
   const [Gender, setGender] = useState("");
-  const [ChipNumber, setChipNumber] = useState("");
+  const [ChipNumber, setChipNumber] = useState(null);
   const [BirthDate, setBirthDate] = useState("");
   const [owner, setOwner] = useState([]);
+  const [Token, setToken] = useState(auth.accessToken);
 
   useEffect(() => {
-    // const loggedInUser = localStorage.getItem("user");
-    
-    // const foundUser = JSON.parse(loggedInUser);
-
-    // const id = foundUser.user.id;
-    // setOwner(id);
-    const 
+    const Id = jwt_decode(Token);
+    setOwner(Id.id);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -45,19 +41,34 @@ const AddPet = () => {
       const resp = await axios.post(
         ADDPET_URL,
         JSON.stringify({
-          name: Name,
-          race: Race,
-          species: Gatunek,
-          gender: Gender,
-          chip_number: ChipNumber,
-          owner: [owner],
+          data: {
+            name: Name,
+            race: Race,
+            species: Gatunek,
+            gender: Gender,
+            date_of_birth: BirthDate,
+            chip_number: ChipNumber,
+            color: Umaszczenie,
+            owner: [owner],
+          },
         }),
+
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Token}`,
+          },
           withCredentials: true,
         }
       );
       console.log(JSON.stringify(resp?.data));
+      setName("");
+      setGatunek("");
+      setGender("");
+      setBirthDate("");
+      setChipNumber(null);
+      setUmaszczenie("");
+      setRace("");
     } catch (err) {
       console.log(err);
     }
@@ -197,7 +208,7 @@ const AddPet = () => {
               }}
               autoComplete='off'
             />
-            <Form.Text>Format: 0000-0000-0000-0000</Form.Text>
+            {/* <Form.Text>Format: 0000-0000-0000-0000</Form.Text> */}
           </FloatingLabel>
         </Form.Group>
       </Row>
@@ -235,7 +246,7 @@ const AddPet = () => {
           type='switch'
           id='hodowla-switch'
           label='Dodaj hodowlę'
-          className='mx-auto my-auto'
+          className='my-auto'
           onChange={(e) => {
             setWidth(window.screen.width);
             setHodowcaShow(!HodowcaShow);

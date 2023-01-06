@@ -15,12 +15,19 @@ function Nav() {
     localStorage.clear();
   };
 
+  const navigator = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <Navbar bg='dark' variant='dark'>
         <Container>
-          <Navbar.Brand href='#home'>
-            <Link to='/' style={{ textDecoration: "none", color: "white" }}>
+          <Navbar.Brand>
+            <a
+              href='/'
+              onClick={navigator}
+              style={{ textDecoration: "none", color: "white" }}>
               <img
                 alt=''
                 src={Logo}
@@ -29,7 +36,7 @@ function Nav() {
                 className='d-inline-block align-top'
               />
               {" My Zoo"}
-            </Link>
+            </a>
           </Navbar.Brand>
           <Navbar.Collapse
             // className='justify-content-end'
