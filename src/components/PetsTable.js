@@ -11,7 +11,7 @@ const PetsTable = ({ pet, updateId }) => {
     if (sendPetId == undefined) {
       console.log("co ty kurwa robisz?");
     } else {
-      updateId({ ...sendPetId });
+      updateId(sendPetId);
     }
   }, [sendPetId]);
 
@@ -36,7 +36,7 @@ const PetsTable = ({ pet, updateId }) => {
           <td>
             <p className='table_data'>{race}</p>
           </td>
-          <td>
+          <td className='d-flex justify-content-center'>
             {/* <Link to='/Pet'> */}{" "}
             <Button className='mt-2' onClick={() => handleClick()}>
               Szczegóły

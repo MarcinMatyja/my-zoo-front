@@ -11,6 +11,7 @@ import Layout from "./components/Layout";
 import RequireAuth from "./components/RequireAuth";
 import Pets from "./components/Pets";
 import PersistLogin from "./components/PersistLogin";
+import AddPet from "./components/AddPet";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
           <Route element={<RequireAuth />}>
             <Route path='/' element={<Pets />} />
             <Route path='pet' element={<Pet />} />
-            <Route path='pets' element={<Pets />} />
+            <Route path='addpet' element={<AddPet />} />
+            {/* <Route path='pets' element={<Pets />} /> */}
           </Route>
         </Route>
       </Route>

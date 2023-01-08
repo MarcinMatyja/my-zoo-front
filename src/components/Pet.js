@@ -9,20 +9,57 @@ import useRefreshToken from "../hooks/useRefreshToken";
 
 import Stack from "react-bootstrap/Stack";
 
+import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
+import AppoitmentsTable from "./AppointmentsTable";
 
-function Pet({ props }) {
-  const id = props[0];
+import { useNavigate, useLocation } from "react-router-dom";
+
+function Pet() {
+  const location = useLocation();
+  // const id = props.props;
+  const id = location.state.id;
   const { auth } = useAuth();
   // const [pet, setPet] = useState();
+  const navigate = useNavigate();
 
   const [name, setName] = useState();
   const [birthDate, setBirthDate] = useState();
   const [chipNumber, setChipNumber] = useState();
+  const [petData, setPetData] = useState();
+  const [remove, setRemove] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const [rerender, setRerender] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    console.log(id);
+  });
+
+  const handleDelete = async () => {
+    try {
+      console.log(id);
+      const Token = auth.accessToken;
+      const resp = await axios.delete(`/pets/${id}`, {
+        headers: { Authorization: `Bearer ${Token}` },
+        withCredentials: true,
+      });
+      console.log(Token);
+      console.log(resp);
+      setShow(false);
+      setRerender(true);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getApointment = async () => {
     try {
@@ -32,6 +69,7 @@ function Pet({ props }) {
         headers: { Authorization: `Bearer ${Token}` },
         withCredentials: true,
       });
+      setPetData(resp.data.data.attributes);
       setName(resp.data.data.attributes.name);
       setBirthDate(resp.data.data.attributes.date_of_birth);
       setChipNumber(resp.data.data.attributes.chip_number);
@@ -75,10 +113,14 @@ function Pet({ props }) {
           </Col>
         </Row>
         <Row className='mt-5 mb-1'>
-          <Stack direction='horizontal' gap={3}>
+          <Stack direction='horizontal' className='d-flex' gap={3}>
             <Button active>zakończone</Button>
             <Button>zaplanowane</Button>
             <Button>wszytskie</Button>
+            <Button variant='success'>dodaj wizytę|+</Button>
+            <Button className='ms-auto' variant='danger' onClick={handleShow}>
+              USUŃ ZWIERZE
+            </Button>
           </Stack>
         </Row>
         <Row>
@@ -86,35 +128,37 @@ function Pet({ props }) {
             <thead>
               <tr>
                 <th>nazwa wizyty</th>
-                <th className=''>przychodznia</th>
+                <th>przychodznia</th>
                 <th>data wizyty</th>
                 <th>godzina</th>
                 <th>lekarz</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <p className='my-2'>Badania krwi</p>
-                </td>
-                <td>
-                  <p className='my-2 '>Żyrafa</p>
-                </td>
-                <td>
-                  <p className='my-2'>1.01.1970 </p>
-                </td>
-                <td>
-                  <p className='my-2'>13:26</p>
-                </td>
-                <td>
-                  <p className='my-2'> dr. Marcin Matyja</p>
-                </td>
-              </tr>
-            </tbody>
+            {appointments.map((appointment) => (
+              <AppoitmentsTable
+                key={appointment.id}
+                appointment={appointment}
+              />
+            ))}
           </Table>
         </Row>
       </Container>
-      {/* <button onClick={() => refresh()}>JWT</button> */}
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          Czy jesteś pewny, że chcesz usunąć zwierze? <br /> Zmiany będą
+          nieodwracalne
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleClose}>
+            ANULUJ
+          </Button>
+          <Button variant='primary' onClick={handleDelete}>
+            USUŃ
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

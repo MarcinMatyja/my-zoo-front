@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -28,6 +29,12 @@ const AddPet = () => {
   const [BirthDate, setBirthDate] = useState("");
   const [owner, setOwner] = useState([]);
   const [Token, setToken] = useState(auth.accessToken);
+
+  const navigate = useNavigate();
+
+  const navigator = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const Id = jwt_decode(Token);
@@ -69,6 +76,7 @@ const AddPet = () => {
       setChipNumber(null);
       setUmaszczenie("");
       setRace("");
+      navigator();
     } catch (err) {
       console.log(err);
     }
@@ -253,7 +261,7 @@ const AddPet = () => {
           }}
         />
 
-        <Button variant='outline' type='submit' className='btn-custom'>
+        <Button variant='success' type='submit' className='btn-custom'>
           Submit
         </Button>
       </Row>
