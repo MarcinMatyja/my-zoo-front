@@ -1,9 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Register from "./components/Register";
-// import Pets from "./components/Pets";
 import Pet from "./components/Pet";
-import Appoitment from "./components/appoitment";
+import Appointment from "./components/Appointment";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { Routes, Route, Navigate, Router, Link } from "react-router-dom";
@@ -12,6 +10,8 @@ import RequireAuth from "./components/RequireAuth";
 import Pets from "./components/Pets";
 import PersistLogin from "./components/PersistLogin";
 import AddPet from "./components/AddPet";
+import AddAppointment from "./components/AddAppointment";
+import EditAppointment from "./components/EditAppointment";
 
 function App() {
   return (
@@ -24,8 +24,12 @@ function App() {
           {/* protected routes  */}
           <Route element={<RequireAuth />}>
             <Route path='/' element={<Pets />} />
+            <Route path='/Addpet' element={<AddPet />} />
             <Route path='pet' element={<Pet />} />
-            <Route path='addpet' element={<AddPet />} />
+            <Route path='addappointment' element={<AddAppointment />} />
+            <Route path='editappointment' element={<EditAppointment />} />
+            <Route path='appointment' element={<Appointment />} />
+
             {/* <Route path='pets' element={<Pets />} /> */}
           </Route>
         </Route>

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Table from "react-bootstrap/Table";
-import moment, { months } from "moment";
+import moment from "moment";
 
-const AppoitmentsTable = ({ appointment }) => {
+const AppoitmentsTable = ({ appointment, updateId }) => {
   const { Doctor, visit_name, appointment_date, clinic } =
     appointment.attributes;
-  const [sendAppointmentId, setSendAppointmentId] = useState();
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [hour, setHour] = useState("");
+  const id = appointment.id;
 
   // const appointment_date = "2022-01-11T04:17:00.000Z";
   // const mydate = moment("2022-01-11T04:17:00.000Z");
@@ -29,7 +28,13 @@ const AppoitmentsTable = ({ appointment }) => {
     setDay(date.format("DD"));
     setMonth(date.format("MM"));
     setYear(date.format("YYYY"));
+    console.log(id);
   });
+
+  const handleClick = () => {
+    updateId(id);
+    console.log(id);
+  };
 
   //   useEffect(() => {
   //     if (sendPetId == undefined) {
@@ -46,7 +51,7 @@ const AppoitmentsTable = ({ appointment }) => {
 
   return (
     <>
-      <tbody>
+      <tbody onClick={() => handleClick()}>
         <tr>
           <td>
             <p className='my-2'>{visit_name}</p>

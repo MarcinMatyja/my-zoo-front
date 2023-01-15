@@ -3,7 +3,7 @@ import Container from "react-bootstrap/esm/Container";
 import Table from "react-bootstrap/Table";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Appoitment from "./appoitment";
+import Appoitment from "./Appointment";
 
 import useRefreshToken from "../hooks/useRefreshToken";
 
@@ -17,19 +17,21 @@ import AppoitmentsTable from "./AppointmentsTable";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
-function Pet() {
+import AddPet from "./AddPet";
+
+const Pet = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   // const id = props.props;
   const id = location.state.id;
   const { auth } = useAuth();
   // const [pet, setPet] = useState();
-  const navigate = useNavigate();
 
   const [name, setName] = useState();
   const [birthDate, setBirthDate] = useState();
   const [chipNumber, setChipNumber] = useState();
   const [petData, setPetData] = useState();
-  const [remove, setRemove] = useState(false);
+  const [petId, setPetId] = useState("");
 
   const [show, setShow] = useState(false);
   const [rerender, setRerender] = useState(false);
@@ -38,6 +40,17 @@ function Pet() {
   const handleShow = () => setShow(true);
 
   const [appointments, setAppointments] = useState([]);
+
+  function updateId(appointmentId) {
+    const id = appointmentId;
+    navigate("/appointment", { state: { id: id } });
+    console.log(appointmentId);
+  }
+
+  const handleClick = (petId) => {
+    navigate("/addappointment", { state: { petId } });
+    console.log(petId);
+  };
 
   useEffect(() => {
     console.log(id);
@@ -54,7 +67,6 @@ function Pet() {
       console.log(Token);
       console.log(resp);
       setShow(false);
-      setRerender(true);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -70,6 +82,7 @@ function Pet() {
         withCredentials: true,
       });
       setPetData(resp.data.data.attributes);
+      setPetId(resp.data.data.id);
       setName(resp.data.data.attributes.name);
       setBirthDate(resp.data.data.attributes.date_of_birth);
       setChipNumber(resp.data.data.attributes.chip_number);
@@ -86,6 +99,9 @@ function Pet() {
   useEffect(() => {
     getApointment();
   }, []);
+  const handleClickOnAppointment = () => {
+    console.log(id);
+  };
 
   return (
     <>
@@ -117,7 +133,9 @@ function Pet() {
             <Button active>zakończone</Button>
             <Button>zaplanowane</Button>
             <Button>wszytskie</Button>
-            <Button variant='success'>dodaj wizytę|+</Button>
+            <Button variant='success' onClick={() => handleClick()}>
+              dodaj wizytę|+
+            </Button>
             <Button className='ms-auto' variant='danger' onClick={handleShow}>
               USUŃ ZWIERZE
             </Button>
@@ -138,6 +156,7 @@ function Pet() {
               <AppoitmentsTable
                 key={appointment.id}
                 appointment={appointment}
+                updateId={updateId}
               />
             ))}
           </Table>
@@ -161,6 +180,6 @@ function Pet() {
       </Modal>
     </>
   );
-}
+};
 
 export default Pet;
