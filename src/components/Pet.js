@@ -5,6 +5,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Appoitment from "./Appointment";
 
+import { FaEdit } from "react-icons/fa";
+
 import useRefreshToken from "../hooks/useRefreshToken";
 
 import Stack from "react-bootstrap/Stack";
@@ -48,7 +50,7 @@ const Pet = () => {
   }
 
   const handleClick = (petId) => {
-    navigate("/addappointment", { state: { petId } });
+    navigate("/addappointment", { state: { petId: id } });
     console.log(petId);
   };
 
@@ -96,12 +98,12 @@ const Pet = () => {
     }
   };
 
+  const handleEdit = () => {
+    navigate("/editPet", { state: { petData, petId } });
+  };
   useEffect(() => {
     getApointment();
   }, []);
-  const handleClickOnAppointment = () => {
-    console.log(id);
-  };
 
   return (
     <>
@@ -125,6 +127,15 @@ const Pet = () => {
                 style={{ minWidth: 100 }}>
                 {birthDate}
               </div>
+              <Button
+                className='ms-2'
+                variant='outline-primary'
+                onClick={() => {
+                  handleEdit();
+                }}>
+                edytuj zwierze
+                <FaEdit className='ms-2 my-1' />
+              </Button>
             </Stack>
           </Col>
         </Row>

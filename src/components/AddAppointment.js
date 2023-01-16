@@ -100,7 +100,7 @@ const AddAppointment = () => {
               onChange={(e) => {
                 setClinic(e.target.value);
               }}
-              value={visit_name}
+              value={Clinic}
               autoComplete='off'
               required
             />
@@ -156,7 +156,7 @@ const AddAppointment = () => {
             label='Data wizyty'
             className='ColorFormFont'>
             <Form.Control
-              type='date'
+              type='datetime-local'
               name='dob'
               placeholder='Due date'
               value={VisitDate}
