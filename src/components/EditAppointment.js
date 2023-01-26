@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import moment from "moment";
+import Container from "react-bootstrap/esm/Container";
 
 const EditAppointment = () => {
   const location = useLocation();
@@ -79,67 +80,68 @@ const EditAppointment = () => {
     }
   };
   return (
-    <Form className='my-5 ' onSubmit={handleSubmit}>
-      <Row className='mb-4 justify-content-center'>
-        <Form.Group as={Col} lg={2} md={2} sm={4} xs={12}>
-          <FloatingLabel
-            controlId='floatingInput'
-            label='Nazwa wizyty'
-            className='ColorFormFont '>
-            <Form.Control
-              type='nazwa wizyty'
-              placeholder='visit_name'
-              onChange={(e) => {
-                setVisit_name(e.target.value);
-              }}
-              value={visit_name}
-              autoComplete='off'
-              required
-            />
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group as={Col} lg={2} md={2} sm={4} xs={12}>
-          <FloatingLabel
-            controlId='floatingInput'
-            label='Nazwa Kliniki'
-            className='ColorFormFont '>
-            <Form.Control
-              type='nazwa Kliniki'
-              placeholder='visit_name'
-              onChange={(e) => {
-                setClinic(e.target.value);
-              }}
-              value={Clinic}
-              autoComplete='off'
-              required
-            />
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group as={Col} lg={2} md={2} sm={3} xs={12}>
-          <FloatingLabel
-            controlId='floatingInput'
-            label='Lekarz'
-            className='ColorFormFont '>
-            <Form.Control
-              type='Lekarz'
-              placeholder='Lekarz'
-              onChange={(e) => {
-                setLekarz(e.target.value);
-              }}
-              value={Lekarz}
-              autoComplete='off'
-              required
-            />
-          </FloatingLabel>
-        </Form.Group>
-      </Row>
-      <Row className='mb-4 justify-content-center'>
-        <FormGroup as={Col} lg={4} md={4} sm={3} xs={12}>
-          <FloatingLabel
-            controlId='floatingTextarea'
-            label='Opis wizyty'
-            className='ColorFormFont'>
-            {/* <Form.Control
+    <Container style={{ maxWidth: 2000 }}>
+      <Form className='my-5 ' onSubmit={handleSubmit}>
+        <Row className='mb-4 justify-content-center'>
+          <Form.Group as={Col} lg={2} md={2} sm={4} xs={12}>
+            <FloatingLabel
+              controlId='floatingInput'
+              label='Nazwa wizyty'
+              className='ColorFormFont '>
+              <Form.Control
+                type='nazwa wizyty'
+                placeholder='visit_name'
+                onChange={(e) => {
+                  setVisit_name(e.target.value);
+                }}
+                value={visit_name}
+                autoComplete='off'
+                required
+              />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} lg={2} md={2} sm={4} xs={12}>
+            <FloatingLabel
+              controlId='floatingInput'
+              label='Nazwa Kliniki'
+              className='ColorFormFont '>
+              <Form.Control
+                type='nazwa Kliniki'
+                placeholder='visit_name'
+                onChange={(e) => {
+                  setClinic(e.target.value);
+                }}
+                value={Clinic}
+                autoComplete='off'
+                required
+              />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} lg={2} md={2} sm={3} xs={12}>
+            <FloatingLabel
+              controlId='floatingInput'
+              label='Lekarz'
+              className='ColorFormFont '>
+              <Form.Control
+                type='Lekarz'
+                placeholder='Lekarz'
+                onChange={(e) => {
+                  setLekarz(e.target.value);
+                }}
+                value={Lekarz}
+                autoComplete='off'
+                required
+              />
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+        <Row className='mb-4 justify-content-center'>
+          <FormGroup as={Col} lg={4} md={4} sm={3} xs={12}>
+            <FloatingLabel
+              controlId='floatingTextarea'
+              label='Opis wizyty'
+              className='ColorFormFont'>
+              {/* <Form.Control
               type='Rasa'
               placeholder='Rasa'
               required
@@ -149,31 +151,32 @@ const EditAppointment = () => {
               }}
               autoComplete='off'
             /> */}
-            <Form.Control
-              as='textarea'
-              placeholder='Leave a comment her'
-              style={{ height: 100 }}
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-              value={Descrioption}
-            />
-          </FloatingLabel>
-        </FormGroup>
-      </Row>
+              <Form.Control
+                as='textarea'
+                placeholder='Leave a comment her'
+                style={{ height: 100 }}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                value={Descrioption}
+              />
+            </FloatingLabel>
+          </FormGroup>
+        </Row>
 
-      <Row
-        as={Col}
-        lg={6}
-        md={6}
-        sm={6}
-        xs={12}
-        className='justify-content-center'>
-        <Button variant='success' type='submit' className='btn-custom'>
-          Zapisz zmiany
-        </Button>
-      </Row>
-    </Form>
+        <Row
+          as={Col}
+          lg={6}
+          md={6}
+          sm={6}
+          xs={12}
+          className='justify-content-center'>
+          <Button variant='success' type='submit' className='btn-custom'>
+            Zapisz zmiany
+          </Button>
+        </Row>
+      </Form>
+    </Container>
   );
 };
 

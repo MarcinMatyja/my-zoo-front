@@ -55,6 +55,9 @@ const Appointment = () => {
       console.log(err);
     }
   };
+  const hadleAddFinding = () => {
+    navigate("/addfinding", { state: { appId: id } });
+  };
 
   useEffect(() => {
     console.log(id);
@@ -92,6 +95,34 @@ const Appointment = () => {
     setYear(date.format("YYYY"));
   }, [AppDate]);
 
+  // const handleUpload = () => {
+  //   const input = document.createElement("input");
+  //   input.type = "file";
+  //   input.onchange = async (e) => {
+  //     const file = e.target.files[0];
+  //     // call the function to upload the file
+  //     await uploadFile(file);
+  //   };
+  //   input.click();
+  // };
+
+  // const uploadFile = async (file) => {
+  //   const Token = auth?.accessToken;
+  //   const data = new FormData();
+  //   data.append("files", file);
+  //   console.log(data);
+
+  //   try {
+  //     const response = await axios.post("/upload/", {
+  //       headers: { Authorization: `Bearer ${Token}` },
+  //       withCredentials: true,
+  //     });
+  //     const result = await response.json();
+  //     console.log(result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   return (
     <>
       <Row className='mx-auto my-3' style={{ width: 500 }}>
@@ -142,8 +173,11 @@ const Appointment = () => {
             style={{ maxWidth: 150, maxHeight: 150 }}
             className='mx-auto my-auto'
           />
-          <Button variant='primary' className='mt-auto'>
-            Wyniki Badań
+          <Button
+            variant='primary'
+            className='mt-auto'
+            onClick={hadleAddFinding}>
+            Dodaj załącznik
           </Button>
         </Card>
       </Row>

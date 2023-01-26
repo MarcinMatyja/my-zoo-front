@@ -21,7 +21,6 @@ const PersistLogin = () => {
       const ID = foundUser.user.id;
       setAuth({ user, ID, accessToken });
       setIsLoading(false);
-      console.log(from);
     } else {
       navigate(from, { replace: true });
       setIsLoading(false);

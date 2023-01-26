@@ -8,8 +8,7 @@ const PetsTable = ({ pet, updateId }) => {
   const [sendPetId, setSendPetId] = useState();
 
   useEffect(() => {
-    if (sendPetId == undefined) {
-      console.log("co ty kurwa robisz?");
+    if (sendPetId === undefined) {
     } else {
       updateId(sendPetId);
     }

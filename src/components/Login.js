@@ -64,6 +64,7 @@ const Login = () => {
       setPwd("");
 
       localStorage.setItem("user", JSON.stringify(resp?.data));
+      localStorage.setItem("jwt", JSON.stringify(resp?.data.jwt));
     } catch (err) {
       if (!err?.resp) {
         setErrMsg("no Server Response");

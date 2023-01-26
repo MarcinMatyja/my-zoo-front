@@ -29,6 +29,9 @@ const AppoitmentsTable = ({ appointment, updateId }) => {
     setMonth(date.format("MM"));
     setYear(date.format("YYYY"));
     console.log(id);
+    const today = new Date();
+    console.log(appointment.attributes.appointment_date);
+    console.log(today);
   });
 
   const handleClick = () => {

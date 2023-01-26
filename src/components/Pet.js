@@ -35,8 +35,12 @@ const Pet = () => {
   const [petData, setPetData] = useState();
   const [petId, setPetId] = useState("");
 
+  const [filter, setFilter] = useState("all");
+
   const [show, setShow] = useState(false);
   const [rerender, setRerender] = useState(false);
+
+  const [activeButton, setActiveButton] = useState("all");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -48,6 +52,11 @@ const Pet = () => {
     navigate("/appointment", { state: { id: id } });
     console.log(appointmentId);
   }
+
+  const handleFilter = (filterOption) => {
+    setFilter(filterOption);
+    setActiveButton(filterOption);
+  };
 
   const handleClick = (petId) => {
     navigate("/addappointment", { state: { petId: id } });
@@ -98,6 +107,31 @@ const Pet = () => {
     }
   };
 
+  const filterAppointments = () => {
+    const today = new Date();
+    const todayTimestamp = today.getTime();
+    switch (filter) {
+      case "past":
+        return appointments.filter((appointment) => {
+          const appointmentTimestamp = new Date(
+            appointment.attributes.appointment_date
+          ).getTime();
+          return appointmentTimestamp < todayTimestamp;
+        });
+      case "future":
+        return appointments.filter((appointment) => {
+          const appointmentTimestamp = new Date(
+            appointment.attributes.appointment_date
+          ).getTime();
+          return appointmentTimestamp > todayTimestamp;
+        });
+      case "all":
+        return appointments;
+      default:
+        return appointments;
+    }
+  };
+
   const handleEdit = () => {
     navigate("/editPet", { state: { petData, petId } });
   };
@@ -141,9 +175,21 @@ const Pet = () => {
         </Row>
         <Row className='mt-5 mb-1'>
           <Stack direction='horizontal' className='d-flex' gap={3}>
-            <Button active>zakończone</Button>
-            <Button>zaplanowane</Button>
-            <Button>wszytskie</Button>
+            <Button
+              active={activeButton === "past" ? true : false}
+              onClick={() => handleFilter("past")}>
+              zakończone
+            </Button>
+            <Button
+              active={activeButton === "future" ? true : false}
+              onClick={() => handleFilter("future")}>
+              zaplanowane
+            </Button>
+            <Button
+              active={activeButton === "all" ? true : false}
+              onClick={() => handleFilter("all")}>
+              wszytskie
+            </Button>
             <Button variant='success' onClick={() => handleClick()}>
               dodaj wizytę|+
             </Button>
@@ -163,7 +209,7 @@ const Pet = () => {
                 <th>lekarz</th>
               </tr>
             </thead>
-            {appointments.map((appointment) => (
+            {filterAppointments().map((appointment) => (
               <AppoitmentsTable
                 key={appointment.id}
                 appointment={appointment}
