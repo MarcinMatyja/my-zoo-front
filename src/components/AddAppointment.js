@@ -31,7 +31,7 @@ const AddAppointment = () => {
     navigate(-1);
   };
   useEffect(() => {
-    console.log();
+    console.log(petId);
   });
 
   const handleSubmit = async (e) => {

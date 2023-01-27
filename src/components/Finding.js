@@ -12,15 +12,11 @@ import useAuth from "../hooks/useAuth";
 import Container from "react-bootstrap/esm/Container";
 import Figure from "react-bootstrap/Figure";
 import Badge from "react-bootstrap/Badge";
+import Card from "react-bootstrap/Card";
+import { FaEdit } from "react-icons/fa";
 
 const Finding = () => {
-  const ADDFINDINGS_URL = "/findings";
-
   const navigate = useNavigate();
-
-  function goBack() {
-    navigate(-1);
-  }
 
   const location = useLocation();
   const id = location.state.id;
@@ -28,10 +24,35 @@ const Finding = () => {
   const [finding_name, setFinding_name] = useState("");
   const [image, setImage] = useState("");
   const [Description, setDescription] = useState("");
+  const [findingId, setFindingId] = useState("");
+  const [data, setData] = useState("");
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  const handleEdit = () => {
+    navigate("/editfinding", { state: { data: data } });
+  };
+  const deleteFinding = async () => {
+    // /api/findings/:id
+
+    try {
+      const Token = auth?.accessToken;
+      const resp = await axios.delete(`/findings/${findingId}`, {
+        headers: { Authorization: `Bearer ${Token}` },
+        withCredentials: true,
+      });
+      console.log(resp);
+      goBack();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     getFinding();
-  });
+  }, []);
 
   const getFinding = async (e) => {
     try {
@@ -47,6 +68,8 @@ const Finding = () => {
           resp.data.data.attributes.related_files.data.attributes.formats.large
             .url
       );
+      setData(resp.data.data);
+      setFindingId(resp.data.data.id);
       setDescription(resp.data.data.attributes.description);
       setFinding_name(resp.data.data.attributes.finding_name);
       console.log(resp);
@@ -64,28 +87,68 @@ const Finding = () => {
           md={3}
           sm={3}
           xs={3}
-          className='mb-4 justify-content-center'>
+          className='mb-4 justify-content-center my-3'>
           <Badge bg='light' text='dark'>
             <h3>{finding_name}</h3>
           </Badge>
         </Row>
+        <Row
+          as={Col}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={3}
+          className='mb-4 justify-content-center'>
+          <Card>
+            <Card.Body className='justify-content-center'>
+              <Card.Text style={{ fontSize: "15px" }}>{Description}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Row>
         <Row className='mb-4 justify-content-center'>
           <Figure as={Col} lg={4} md={4} sm={3} xs={12}>
             <Figure.Image width={800} height={800} alt='800x800' src={image} />
-            <Figure.Caption>{Description}</Figure.Caption>
           </Figure>
         </Row>
 
         <Row
           as={Col}
-          lg={6}
+          lg={1}
           md={6}
           sm={6}
           xs={12}
-          className='justify-content-center'>
-          <Button variant='success' type='submit' className='btn-custom'>
-            Submit
-          </Button>
+          className='justify-content-center py-3'>
+          <Container
+            style={{ maxWidth: 500 }}
+            className='d-flex justify-content-around'>
+            <Button
+              style={{ minWidth: 100 }}
+              variant='success'
+              className='btn-custom'
+              onClick={() => {
+                goBack();
+              }}>
+              Wróć
+            </Button>
+            <Button
+              className='ms-2'
+              variant='outline-primary'
+              onClick={() => {
+                handleEdit();
+              }}>
+              edytuj wynik
+              <FaEdit className='ms-2 my-1' />
+            </Button>
+            <Button
+              style={{ minWidth: 100 }}
+              variant='danger'
+              className='btn-custom'
+              onClick={() => {
+                deleteFinding();
+              }}>
+              Usuń
+            </Button>
+          </Container>
         </Row>
       </Container>
     </>

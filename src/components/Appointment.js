@@ -112,7 +112,7 @@ const Appointment = () => {
         </Badge>
       </Row>
       <Row className='mx-auto d-flex' style={{ maxWidth: 1200 }}>
-        <Col>
+        <Col className='d-flex justify-content-start'>
           <Button
             variant='outline-primary'
             onClick={() => {
@@ -127,8 +127,7 @@ const Appointment = () => {
         </Col>
       </Row>
       <Row className='mx-auto d-flex mt-3 ' style={{ maxWidth: 1200 }}>
-        <Col className='px-0'>
-          <Col className='ms-2'>Przychodnia </Col>
+        <Col className='px-0 '>
           <Col
             className='bg-light border px-md-4 px-0 mb-3 justify-content-center d-flex'
             style={{ maxWidth: 600 }}>
@@ -145,23 +144,7 @@ const Appointment = () => {
             {description}
           </Card.Text>
         </Card>
-        <Card
-          className='my-3 mx-auto py-2'
-          style={{ maxWidth: 200, maxHeight: 200 }}>
-          <Card.Text
-            align='justify'
-            style={{ maxWidth: 150, maxHeight: 150 }}
-            className='mx-auto my-auto'
-          />
-          <Button
-            variant='primary'
-            className='mt-auto'
-            onClick={hadleAddFinding}>
-            Dodaj wynik
-          </Button>
-        </Card>
       </Row>
-
       <Row className='my-3 mx-auto' style={{ maxWidth: 1200 }}>
         <Col
           // direction='horizontal'
@@ -178,12 +161,6 @@ const Appointment = () => {
                 {day + "-" + month + "-" + year + " " + hour}
               </Col>
             </Col>
-            {/* <Col className='px-0'>
-              <Col className='ms-2'>data modyfikacji</Col>
-              <Col className='bg-light border justify-content-center d-flex'>
-                20.08.2022
-              </Col>
-            </Col> */}
             <Col className='px-0 ms-5'>
               <Col className='ms-2'>Lekarz</Col>
               <Col className='bg-light border justify-content-center d-flex'>
@@ -204,6 +181,14 @@ const Appointment = () => {
               />
             ))}
           </ListGroup>
+          <Row className='my-3 mx-auto py-1 px-3' style={{ maxWidth: 200 }}>
+            <Button
+              variant='primary'
+              className='mt-auto'
+              onClick={hadleAddFinding}>
+              Dodaj wynik
+            </Button>
+          </Row>
         </Col>
       </Row>
       <Modal show={show} onHide={handleClose}>

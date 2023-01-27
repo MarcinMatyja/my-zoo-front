@@ -97,7 +97,7 @@ const Pet = () => {
       setName(resp.data.data.attributes.name);
       setBirthDate(resp.data.data.attributes.date_of_birth);
       setChipNumber(resp.data.data.attributes.chip_number);
-      console.log(resp?.data.data.attributes);
+      console.log(resp?.data.data.id);
       setAppointments(resp?.data.data.attributes.appointments.data);
       console.log(resp?.data.data.attributes.appointments.data);
 

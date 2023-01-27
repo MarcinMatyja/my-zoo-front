@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -48,4 +51,12 @@
 .offscreen {
   position: absolute;
   left: -9999px;
+}
+.footer {
+  background-color: #ccc;
+  height: 4vh;
+  text-align: center;
+}
+.main-content {
+  flex: 1;
 }
