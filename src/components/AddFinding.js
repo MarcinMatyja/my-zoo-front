@@ -14,6 +14,12 @@ import Container from "react-bootstrap/esm/Container";
 const AddFinding = () => {
   const ADDFINDINGS_URL = "/findings";
 
+  const navigate = useNavigate();
+
+  function goBack() {
+    navigate(-1);
+  }
+
   const location = useLocation();
   const appId = location.state.appId;
   const { auth } = useAuth();
@@ -47,6 +53,7 @@ const AddFinding = () => {
         withCredentials: true,
       });
       console.log(resp);
+      goBack();
     } catch (err) {
       console.log(err);
     }

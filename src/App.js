@@ -14,6 +14,7 @@ import AddAppointment from "./components/AddAppointment";
 import EditAppointment from "./components/EditAppointment";
 import EditPet from "./components/editPet";
 import AddFinding from "./components/AddFinding";
+import Finding from "./components/Finding";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path='appointment' element={<Appointment />} />
             <Route path='editpet' element={<EditPet />} />
             <Route path='addfinding' element={<AddFinding />} />
+            <Route path='finding' element={<Finding />} />
 
             {/* <Route path='pets' element={<Pets />} /> */}
           </Route>

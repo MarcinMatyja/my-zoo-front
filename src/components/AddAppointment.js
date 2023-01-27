@@ -28,7 +28,7 @@ const AddAppointment = () => {
   const navigate = useNavigate();
 
   const navigator = () => {
-    navigate("/");
+    navigate(-1);
   };
   useEffect(() => {
     console.log();

@@ -13,6 +13,8 @@ import AddAppointment from "./AddAppointment";
 import { useNavigate, useLocation } from "react-router-dom";
 import moment from "moment";
 import Modal from "react-bootstrap/Modal";
+import FindingsList from "./FindingsList";
+import ListGroup from "react-bootstrap/ListGroup";
 
 const Appointment = () => {
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ const Appointment = () => {
   const [appointmentData, setAppointmentData] = useState({});
   const [AppDate, setAppDete] = useState("");
   const [petId, setPetId] = useState("");
+  const [findings, setFindings] = useState([]);
 
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
@@ -41,6 +44,11 @@ const Appointment = () => {
   const handleClick = () => {
     navigate("/editappointment", { state: appointmentData });
   };
+  function updateId(findingId) {
+    const id = findingId;
+    navigate("/finding", { state: { id: id } });
+    console.log(findingId);
+  }
   const handleDelete = async () => {
     try {
       const Token = auth?.accessToken;
@@ -80,6 +88,7 @@ const Appointment = () => {
         setName(resp.data.data.attributes.pet.data.attributes.name);
         setClinic(resp.data.data.attributes.clinic);
         setPetId(resp.data.data.attributes.pet.data.id);
+        setFindings(resp.data.data.attributes.findings.data);
       } catch (err) {
         console.log(err);
       }
@@ -95,34 +104,6 @@ const Appointment = () => {
     setYear(date.format("YYYY"));
   }, [AppDate]);
 
-  // const handleUpload = () => {
-  //   const input = document.createElement("input");
-  //   input.type = "file";
-  //   input.onchange = async (e) => {
-  //     const file = e.target.files[0];
-  //     // call the function to upload the file
-  //     await uploadFile(file);
-  //   };
-  //   input.click();
-  // };
-
-  // const uploadFile = async (file) => {
-  //   const Token = auth?.accessToken;
-  //   const data = new FormData();
-  //   data.append("files", file);
-  //   console.log(data);
-
-  //   try {
-  //     const response = await axios.post("/upload/", {
-  //       headers: { Authorization: `Bearer ${Token}` },
-  //       withCredentials: true,
-  //     });
-  //     const result = await response.json();
-  //     console.log(result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
   return (
     <>
       <Row className='mx-auto my-3' style={{ width: 500 }}>
@@ -167,9 +148,8 @@ const Appointment = () => {
         <Card
           className='my-3 mx-auto py-2'
           style={{ maxWidth: 200, maxHeight: 200 }}>
-          <Card.Img
-            variant='top'
-            src='holder.js/100px180'
+          <Card.Text
+            align='justify'
             style={{ maxWidth: 150, maxHeight: 150 }}
             className='mx-auto my-auto'
           />
@@ -177,7 +157,7 @@ const Appointment = () => {
             variant='primary'
             className='mt-auto'
             onClick={hadleAddFinding}>
-            Dodaj załącznik
+            Dodaj wynik
           </Button>
         </Card>
       </Row>
@@ -213,12 +193,17 @@ const Appointment = () => {
           </Row>
         </Col>
         <Col>
-          <Card className='my-3 mx-auto py-1 px-3' style={{ maxWidth: 200 }}>
-            <Card.Text align='justify'>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card>
+          <ListGroup
+            className='my-3 mx-auto py-1 px-3'
+            style={{ maxWidth: 300 }}>
+            {findings.map((finding) => (
+              <FindingsList
+                key={finding?.id}
+                finding={finding}
+                updateId={updateId}
+              />
+            ))}
+          </ListGroup>
         </Col>
       </Row>
       <Modal show={show} onHide={handleClose}>
