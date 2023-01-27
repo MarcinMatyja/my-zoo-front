@@ -24,21 +24,21 @@ const Pets = () => {
   const handleClick = () => {
     navigate("/AddPet");
   };
+  const getPets = async () => {
+    try {
+      const Token = auth?.accessToken;
+      const resp = await axios.get(PETS_URL, {
+        headers: { Authorization: `Bearer ${Token}` },
+        withCredentials: true,
+      });
+      console.log(resp.data.pets);
+      setPets(resp.data.pets);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    const getPets = async () => {
-      try {
-        const Token = auth?.accessToken;
-        const resp = await axios.get(PETS_URL, {
-          headers: { Authorization: `Bearer ${Token}` },
-          withCredentials: true,
-        });
-        console.log(resp.data.pets);
-        setPets(resp.data.pets);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     getPets();
   }, []);
 
