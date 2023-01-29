@@ -221,11 +221,17 @@ const Register = () => {
             }>
             Sign Up
           </Button>
-          <Button type='null' href='/login'>
+          {/* <Button type='null' href='/login'>
             login
-          </Button>
+          </Button> */}
         </Form.Group>
       </Form>
+      <p>
+        Alrady have account?
+        <span>
+          <a href='/login'> Loge In</a>
+        </span>
+      </p>
     </>
   );
 };

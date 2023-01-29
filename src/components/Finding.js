@@ -83,14 +83,14 @@ const Finding = () => {
       <Container style={{ maxWidth: 2000 }}>
         <Row
           as={Col}
-          lg={3}
+          lg={1}
           md={3}
           sm={3}
           xs={3}
           className='mb-4 justify-content-center my-3'>
-          <Badge bg='light' text='dark'>
-            <h3>{finding_name}</h3>
-          </Badge>
+          <Card.Body className='justify-content-center'>
+            <Card.Text style={{ fontSize: "25px" }}>{finding_name}</Card.Text>
+          </Card.Body>
         </Row>
         <Row
           as={Col}

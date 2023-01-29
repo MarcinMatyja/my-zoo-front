@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 import PetsTable from "./PetsTable";
+import Container from "react-bootstrap/esm/Container";
 
 const PETS_URL = "/users/me?populate=pets";
 
@@ -66,13 +68,19 @@ const Pets = () => {
           <PetsTable key={pet?.id} pet={pet} updateId={updateId} />
         ))}
         {/* To powodóje błąd w konsoli do poprawy trzeba przeniesc przycisk do Pets Table */}
-        <Button
-          variant='success'
-          className='mt-2'
-          onClick={() => handleClick()}>
-          dodaj nowego członka zoo
-        </Button>
       </Table>
+      <Container
+        style={{ maxWidth: 1000 }}
+        className='d-flex justify-content-start'>
+        <Row>
+          <Button
+            variant='success'
+            className='mt-2'
+            onClick={() => handleClick()}>
+            dodaj nowego członka zoo
+          </Button>
+        </Row>
+      </Container>
       {/* <button onClick={LoadAddPet()}>dodaj nowego członka zoo</button> */}
     </>
   );

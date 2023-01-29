@@ -66,6 +66,9 @@ const Appointment = () => {
   const hadleAddFinding = () => {
     navigate("/addfinding", { state: { appId: id } });
   };
+  function goBack() {
+    navigate(-1);
+  }
 
   useEffect(() => {
     console.log(id);
@@ -107,7 +110,10 @@ const Appointment = () => {
   return (
     <>
       <Row className='mx-auto my-3' style={{ width: 500 }}>
-        <Badge>
+        <Badge
+          onClick={() => {
+            goBack();
+          }}>
           <h1>{Name.toUpperCase()}</h1>
         </Badge>
       </Row>

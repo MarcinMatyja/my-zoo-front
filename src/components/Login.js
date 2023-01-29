@@ -117,11 +117,18 @@ const Login = () => {
           <Button type='submit' onClick={handleSubmit}>
             Sign In
           </Button>
-          <Button type='null' href='/register'>
+          {/* <Button type='null' href='/register'>
             Register
-          </Button>
+          </Button> */}
         </Form.Group>
       </Form>
+      <br />
+      <p>
+        Need an account?
+        <span>
+          <a href='/register'> Sign Up</a>
+        </span>
+      </p>
     </>
   );
 };

@@ -28,7 +28,7 @@ function App() {
           {/* protected routes  */}
           <Route element={<RequireAuth />}>
             <Route path='/' element={<Pets />} />
-            <Route path='/Addpet' element={<AddPet />} />
+            <Route path='Addpet' element={<AddPet />} />
             <Route path='pet' element={<Pet />} />
             <Route path='addappointment' element={<AddAppointment />} />
             <Route path='editappointment' element={<EditAppointment />} />
