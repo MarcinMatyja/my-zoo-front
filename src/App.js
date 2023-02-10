@@ -37,8 +37,6 @@ function App() {
             <Route path='addfinding' element={<AddFinding />} />
             <Route path='finding' element={<Finding />} />
             <Route path='editfinding' element={<EditFinding />} />
-
-            {/* <Route path='pets' element={<Pets />} /> */}
           </Route>
         </Route>
       </Route>
